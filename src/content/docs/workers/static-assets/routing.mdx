@@ -219,14 +219,15 @@ Take the following directory structure:
 /folder/doesnt/exist -> 200 /index.html
 ```
 
-## Mounting assets on a path
+## Serving assets from a custom path
 
 :::note
 This feature requires Wrangler v3.xx.xx or later.
 :::
 
-You can mount assets on a path by creating a directory structure that mirrors the desired path.
-For example, to serve assets from `example.com/blog`, create a `blog` directory in your asset directory.
+Like with any other Worker, [you can configure a Worker with assets to run on a subpath of your domain](https://developers.cloudflare.com/workers/configuration/routing/routes/). Assets in such a Worker such be nested in a directory structure that mirrors the desired path.
+
+For example, to serve assets from `example.com/blog/*`, create a `blog` directory in your asset directory.
 
 <FileTree>
 - dist
@@ -240,7 +241,7 @@ For example, to serve assets from `example.com/blog`, create a `blog` directory 
 With a Wrangler configuration file like so:
 <WranglerConfig>
 ```toml
-name = "mounted-assets-example"
+name = "assets-on-a-path-example"
 main = "src/index.js"
 route = "example.com/blog/*"
 
@@ -249,6 +250,6 @@ directory = "dist"
 ```
 </WranglerConfig>
 
-In this example, requests to `example.com/blog` will serve the `index.html` file, and requests to `example.com/blog/posts/post1` will serve the `post1.html` file.
+In this example, requests to `example.com/blog/` will serve the `index.html` file, and requests to `example.com/blog/posts/post1` will serve the `post1.html` file.
 
-If you have a file outside the mounted path, it will not be served. For example, if you have a `home.html` file in the root of your asset directory, it will not be served when requesting `example.com/blog/home`.
+If you have a file outside the configured path, it will not be served. For example, if you have a `home.html` file in the root of your asset directory, it will not be served when requesting `example.com/blog/home`. However, if needed, these files can still be manually fetched over [the binding](https://developers.cloudflare.com/workers/static-assets/binding/#binding).
