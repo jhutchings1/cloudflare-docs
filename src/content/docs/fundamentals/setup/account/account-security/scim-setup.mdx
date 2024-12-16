@@ -30,15 +30,15 @@ Accounts provisioned with SCIM need to verify their email addresses.
 :::
 
 ---
-## Gather required data
+## Gather the required data
 
 To start, you will need to collect a couple of pieces of data from Cloudflare and set these aside for later use. 
 
 ### Get your Account ID
 
-1. Navigate to the Account you want to configure for SCIM
 
-2. In your browser's navigation bar, copy the Account ID from the URL. The URL should be in the format `https://dash.cloudflare.com/<accountID>`
+1. In the [Cloudflare dashboard](https://dash.cloudflare.com/), go to the Cloudflare account that you want to configure for SCIM provisioning.
+2. Copy your account ID from the account home page.
 
 ### Create an API token
 
@@ -92,28 +92,29 @@ To start, you will need to collect a couple of pieces of data from Cloudflare an
 1. In **Provisioning to App**, select **Edit**.
 2. Enable **Create Users** and **Deactivate Users**. Select **Save**.
 3. In the integration page, go to **Assignments** > **Assign** > **Assign to Groups**.
-4. Choose group(s) that you want to provision to Cloudflare. 
+4. Choose the group(s) that you want to provision to Cloudflare. 
 5. Select **Done**.
 
 This will provision all of the users in the group(s) affected to your Cloudflare account with "minimal account access."
 
 ### Configure user permissions 
 
-There are two options for managing user permissions
-* Manage your user permissions on a per-user basis in the Dashboard, API, or using Terraform. 
+There are two options for managing user permissions:
+
+* Manage your user permissions on a per-user basis in the Cloudflare dashboard, API, or using Terraform. 
 * Map your IdP groups to a Cloudflare built-in [Role](/fundamentals/setup/manage-members/roles/). Groups may only be linked to one role. 
 
 1. Go to your SCIM application in the App Integration Catalog, then select **Provisioning**.
 2. Under **To App*, select **Edit**.
 3. Enable **Create Users** and **Deactivate Users**. Select **Save**.
-4. Go to **Push Groups**
-5. Click **+ Push Groups**, then **Find groups by name**
-6. Type in the name of the group(s) you want to sync to Cloudflare. 
-7. Choose Link Group
-8. Cloudflare provisioned user groups named in the pattern `CF-<accountID> - <Role Name>`. Choose the appropriate group that maps to your target role. 
-6. Disable **Rename groups**. Select **Save**.
-7. Within the **Push Groups** tab, select **Push Groups**.
-8. Add the groups you created.
+4. Go to **Push Groups**.
+5. Select **+ Push Groups**, then **Find groups by name**.
+6. Enter the name of the group(s) that you want to sync to Cloudflare. 
+7. Choose **Link Group**.
+8. Cloudflare provisioned user groups are named in the pattern `CF-<accountID> - <Role Name>`. Choose the appropriate group that maps to your target role. 
+9. Disable **Rename groups**. Select **Save**.
+10. Within the **Push Groups** tab, select **Push Groups**.
+11. Add the groups you created.
 9. Select **Save**.
 
 Adding any users to these groups will grant them the role. Removing the users from the identity provider will remove them from the associated role.
